@@ -71,6 +71,102 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-mindset" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/09/16/mindset/" class="article-date">
+  <time class="dt-published" datetime="2025-09-16T11:32:09.000Z" itemprop="datePublished">2025-09-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/09/16/mindset/">mindset</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>优化思维</p>
+<ul>
+<li></li>
+</ul>
+<p>试错思维</p>
+<ul>
+<li></li>
+</ul>
+<p>过程推演</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/09/16/mindset/" data-id="cmfmhxxgp0005mwfb9k80hfrr" data-title="mindset" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-algorithm-insertion-sort" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/09/16/algorithm-insertion-sort/" class="article-date">
+  <time class="dt-published" datetime="2025-09-16T11:13:15.000Z" itemprop="datePublished">2025-09-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/09/16/algorithm-insertion-sort/">algorithm-insertion-sort</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="函数复现"><a href="#函数复现" class="headerlink" title="函数复现"></a>函数复现</h4><p>template <class T><br>void insertSort(T *a,int n){<br>	for (int i &#x3D; 1;i&lt;n;i++){<br>		int tmp_value&#x3D;a[i];<br>		int fly &#x3D;i-1;<br>		for(;a[fly]&gt;tmp_value;fly–){<br>			a[fly+1]&#x3D;a[fly];<br>		};<br>		a[fly+1]&#x3D;tmp_value;<br>	};<br>} ;</p>
+<pre><code>//关键错误：最后一步，错误的认为是a[fly]导致越界 
+//本质上不是插入，而是类似挪积木
+</code></pre>
+<h6 id="验证方便代码："><a href="#验证方便代码：" class="headerlink" title="验证方便代码："></a>验证方便代码：</h6><p>#include <iostream><br>using namespace std;</p>
+<p>int main(void){<br>	int a[4]&#x3D;{4,3,2,1};</p>
+<p>​	insertSort(a,4); </p>
+<p>​	cout&lt;&lt;a[0]&lt;&lt;a[1]&lt;&lt;a[2]&lt;&lt;a[3];</p>
+<p>} </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/09/16/algorithm-insertion-sort/" data-id="cmfmhxxg70000mwfb9iqk4z3g" data-title="algorithm-insertion-sort" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/" rel="tag">algorithm</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-thanks-to" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/09/16/thanks-to/" class="article-date">
@@ -100,7 +196,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/16/thanks-to/" data-id="cmfmg5xs10001dwfb8i2reqnp" data-title="thanks-to" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/16/thanks-to/" data-id="cmfmhxxgi0003mwfb8j1m2elv" data-title="thanks-to" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -139,7 +235,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/16/first-day/" data-id="cmfmg5xrh0000dwfba3olfgi7" data-title="first-day" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/16/first-day/" data-id="cmfmhxxge0001mwfb0gzb45sg" data-title="first-day" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -161,9 +257,23 @@
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithm/" rel="tag">algorithm</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/algorithm/" style="font-size: 10px;">algorithm</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
@@ -180,6 +290,14 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2025/09/16/mindset/">mindset</a>
+          </li>
+        
+          <li>
+            <a href="/2025/09/16/algorithm-insertion-sort/">algorithm-insertion-sort</a>
+          </li>
         
           <li>
             <a href="/2025/09/16/thanks-to/">thanks-to</a>
