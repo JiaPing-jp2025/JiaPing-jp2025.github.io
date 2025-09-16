@@ -106,7 +106,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/16/mindset/" data-id="cmfmhxxgp0005mwfb9k80hfrr" data-title="mindset" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/16/mindset/" data-id="cmfmidxua0001usfbev0paw7z" data-title="mindset" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -140,20 +140,19 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h4 id="函数复现"><a href="#函数复现" class="headerlink" title="函数复现"></a>函数复现</h4><p>template <class T><br>void insertSort(T *a,int n){<br>	for (int i &#x3D; 1;i&lt;n;i++){<br>		int tmp_value&#x3D;a[i];<br>		int fly &#x3D;i-1;<br>		for(;a[fly]&gt;tmp_value;fly–){<br>			a[fly+1]&#x3D;a[fly];<br>		};<br>		a[fly+1]&#x3D;tmp_value;<br>	};<br>} ;</p>
-<pre><code>//关键错误：最后一步，错误的认为是a[fly]导致越界 
-//本质上不是插入，而是类似挪积木
-</code></pre>
-<h6 id="验证方便代码："><a href="#验证方便代码：" class="headerlink" title="验证方便代码："></a>验证方便代码：</h6><p>#include <iostream><br>using namespace std;</p>
-<p>int main(void){<br>	int a[4]&#x3D;{4,3,2,1};</p>
-<p>​	insertSort(a,4); </p>
-<p>​	cout&lt;&lt;a[0]&lt;&lt;a[1]&lt;&lt;a[2]&lt;&lt;a[3];</p>
-<p>} </p>
+        <h4 id="函数复现"><a href="#函数复现" class="headerlink" title="函数复现"></a>函数复现</h4><h5 id="算法复现："><a href="#算法复现：" class="headerlink" title="算法复现："></a>算法复现：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">template &lt;class T&gt;</span><br><span class="line">void insertSort(T *a,int n)&#123;</span><br><span class="line">	for (int i = 1;i&lt;n;i++)&#123;</span><br><span class="line">		int tmp_value=a[i];</span><br><span class="line">		int fly =i-1;</span><br><span class="line">		for(;a[fly]&gt;tmp_value;fly--)&#123;</span><br><span class="line">			a[fly+1]=a[fly];</span><br><span class="line">		&#125;;</span><br><span class="line">		a[fly+1]=tmp_value; </span><br><span class="line">	&#125;;</span><br><span class="line">&#125; ;</span><br></pre></td></tr></table></figure>
+
+<h6 id="说明："><a href="#说明：" class="headerlink" title="说明："></a>说明：</h6><p>第一层for内：从前往后，锁定组合的数据方块格数。</p>
+<p>第二层for内：让代码块内小的同化右侧大的，相当于数据复制到右侧一格。</p>
+<p>最后一步：填充最左侧的重复。</p>
+<h6 id="辅助思考："><a href="#辅助思考：" class="headerlink" title="辅助思考："></a>辅助思考：</h6><p>过程数据组：”145 3“</p>
+<p>方格思维，同时fly的实时地址，标注在方格下。</p>
+<p>Thanks for reading !</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/16/algorithm-insertion-sort/" data-id="cmfmhxxg70000mwfb9iqk4z3g" data-title="algorithm-insertion-sort" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/16/algorithm-insertion-sort/" data-id="cmfmidxu30000usfb1vng3922" data-title="algorithm-insertion-sort" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -196,7 +195,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/16/thanks-to/" data-id="cmfmhxxgi0003mwfb8j1m2elv" data-title="thanks-to" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/16/thanks-to/" data-id="cmfmidxuf0003usfb4yy4eu7e" data-title="thanks-to" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -235,7 +234,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/16/first-day/" data-id="cmfmhxxge0001mwfb0gzb45sg" data-title="first-day" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/16/first-day/" data-id="cmfmidxug0004usfb52sg0ugj" data-title="first-day" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
