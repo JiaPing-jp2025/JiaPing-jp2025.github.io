@@ -103,23 +103,13 @@
 <h6 id="学有余力（灵感）"><a href="#学有余力（灵感）" class="headerlink" title="学有余力（灵感）"></a>学有余力（灵感）</h6><p>补充完善，表的：增，删，改，查·········的完整功能。</p>
 <p>也许可以呈现一个通用模板吗？</p>
 <p>一个表可以盛放不同的数据类型吗？</p>
-<h6 id="小chat老师点评："><a href="#小chat老师点评：" class="headerlink" title="小chat老师点评："></a>小chat老师点评：</h6><hr>
-<p>你写的这份“数据结构介绍 + 基础代码”其实已经挺清晰了。 我帮你梳理一下，让它更完善，并且回答你最后的思考。</p>
-<p>内容点评：</p>
-<ol>
-<li>结构体的三层理解：你把 alist* → alist → table 这三层内存结构形象地解释出来，非常直观。对于初学者来说，很容易建立起“指针指向空间”的图像。</li>
-<li>代码实现：初始化函数 alist_double_Init 写得比较标准，分配两块空间（结构体 &amp; 表）。is_empty 和 list_length&#x2F;int_list_length 基础操作合理。查找 search_Is_What_In_Num &#x2F; where_Is_Key 功能简单明了。auto_Fill_with_NatureNum 用来快速填充测试数据，这个设计很实用。</li>
-<li>存在的小改进点：search_Is_What_In_Num 函数返回类型是 double，但是你实际没有 return 值（只打印），要么改成 void，要么返回 xlist-&gt;table[x-1]。where_Is_Key 永远返回 -1，即使找到了。可以在找到时 return i，没找到再返回 -1。free 的顺序要注意（要先 free 内部 table，再 free 外层 struct），虽然你这里没写销毁函数，但最好加上 destroy_alist。</li>
-</ol>
-<p>你提到的“学有余力”问题：</p>
-<ol>
-<li>增、删、改、查：你已经有了“查”的部分，可以再加：增，在尾部或指定位置插入元素；删，删除指定位置或指定 key；改，修改某个下标的值。</li>
+<h6 id="网上资源补充："><a href="#网上资源补充：" class="headerlink" title="网上资源补充："></a>网上资源补充：</h6><ol start="2">
 <li>通用模板：可以用 C++ 模板（template）来写，就不用固定 double 类型。例如：</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">template &lt;typename T&gt;</span><br><span class="line">struct alist &#123;</span><br><span class="line">    int n;</span><br><span class="line">    int maxsize;</span><br><span class="line">    T* table;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">template &lt;typename T&gt;</span><br><span class="line">alist&lt;T&gt;* alist_Init(int size) &#123;</span><br><span class="line">    alist&lt;T&gt;* xlist = new alist&lt;T&gt;;</span><br><span class="line">    xlist-&gt;n = 0;</span><br><span class="line">    xlist-&gt;maxsize = size;</span><br><span class="line">    xlist-&gt;table = new T[size];</span><br><span class="line">    return xlist;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">template &lt;typename T&gt;</span><br><span class="line">void alist_Destroy(alist&lt;T&gt;* xlist) &#123;</span><br><span class="line">    delete[] xlist-&gt;table;</span><br><span class="line">    delete xlist;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>这样就能定义 alist、alist、alist … 都能用一套逻辑。<br> 3. 一个表能不能盛放不同数据类型？C语言思路：用 void* 存储任意类型的指针，同时保存一个类型信息。但操作会很麻烦。C++思路：模板（推荐）：每个表固定一种类型，但灵活切换。std::variant &#x2F; std::any（C++17起）：真的能在同一个表里存不同类型，但操作复杂度提高。如果你是为了练习数据结构，建议先从模板开始，因为它最贴近“强类型安全 + 灵活”的设计。</p>
-<hr>
+<p>这样就能定义 alist、alist、alist … 都能用一套逻辑。</p>
+<p>2.一个表盛放不同数据类型，C语言思路：用 void* 存储任意类型的指针，同时保存一个类型信息。但操作会很麻烦。C++思路：模板（推荐）：每个表固定一种类型，但灵活切换。std::variant &#x2F; std::any（C++17起）：真的能在同一个表里存不同类型，但操作复杂度提高。</p>
 <p>thanks for reading!</p>
 <p>Written by JiaPing.</p>
 <p>©all rights reserved.</p>
@@ -127,7 +117,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/17/simple-list-structure/" data-id="cmfntfn900002ecfbaungdpex" data-title="simple-list-structure" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/17/simple-list-structure/" data-id="cmfnyk4a5000a38fbgarrgi1t" data-title="simple-list-structure" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -326,13 +316,16 @@
 <p>爱？</p>
 <p>爱。</p>
 <p>世界上、最难理解的一个词。</p>
+<p>·</p>
+<p>·</p>
+<p>·</p>
 <p>Written by JiaPing.</p>
 <p>©all rights reserved.</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/16/%E6%98%A5%E5%A8%87%E4%B8%8E%E5%BF%97%E6%98%8E/" data-id="cmfntfn930006ecfb42wy3hz2" data-title="春娇与志明" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/16/%E6%98%A5%E5%A8%87%E4%B8%8E%E5%BF%97%E6%98%8E/" data-id="cmfnyk4a6000b38fbej3p4blm" data-title="春娇与志明" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -373,7 +366,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/16/mindset/" data-id="cmfntfn920004ecfbb7hpf93r" data-title="mindset" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/16/mindset/" data-id="cmfnyk49w000338fb1142gmmr" data-title="mindset" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -421,7 +414,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/16/algorithm-insertion-sort/" data-id="cmfntfn8z0001ecfb6j9f4tuu" data-title="algorithm-insertion-sort" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/16/algorithm-insertion-sort/" data-id="cmfnyk49l000038fbbn7t2xmg" data-title="algorithm-insertion-sort" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -464,7 +457,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/16/thanks-to/" data-id="cmfntfn920005ecfb1eh07uq5" data-title="thanks-to" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/16/thanks-to/" data-id="cmfnyk49x000438fb8pfh9ecg" data-title="thanks-to" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -505,7 +498,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/16/first-day/" data-id="cmfntfn8w0000ecfb02ne9mp6" data-title="first-day" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/16/first-day/" data-id="cmfnyk49s000138fb28lkg2op" data-title="first-day" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
