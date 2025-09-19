@@ -71,6 +71,54 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-algorithm-insertion-sort" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/09/16/algorithm-insertion-sort/" class="article-date">
+  <time class="dt-published" datetime="2025-09-16T11:13:15.000Z" itemprop="datePublished">2025-09-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/09/16/algorithm-insertion-sort/">algorithm-insertion-sort</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="函数复现"><a href="#函数复现" class="headerlink" title="函数复现"></a>函数复现</h4><h5 id="算法复现："><a href="#算法复现：" class="headerlink" title="算法复现："></a>算法复现：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">template &lt;class T&gt;</span><br><span class="line">void insertSort(T *a,int n)&#123;</span><br><span class="line">	for (int i = 1;i&lt;n;i++)&#123;</span><br><span class="line">		int tmp_value=a[i];</span><br><span class="line">		int fly =i-1;</span><br><span class="line">		for(;a[fly]&gt;tmp_value;fly--)&#123;</span><br><span class="line">			a[fly+1]=a[fly];</span><br><span class="line">		&#125;;</span><br><span class="line">		a[fly+1]=tmp_value; </span><br><span class="line">	&#125;;</span><br><span class="line">&#125; ;</span><br></pre></td></tr></table></figure>
+
+<h6 id="说明："><a href="#说明：" class="headerlink" title="说明："></a>说明：</h6><p>第一层for内：从前往后，锁定组合的数据方块格数。</p>
+<p>第二层for内：让代码块内小的同化右侧大的，相当于数据复制到右侧一格。</p>
+<p>最后一步：填充最左侧的重复。</p>
+<h6 id="辅助思考："><a href="#辅助思考：" class="headerlink" title="辅助思考："></a>辅助思考：</h6><p>过程数据组：”145 3“</p>
+<p>方格思维，同时fly的实时地址，标注在方格下。</p>
+<p>Thanks for reading !</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/09/16/algorithm-insertion-sort/" data-id="cmfqiayrg0000vsfb4rucbra7" data-title="algorithm-insertion-sort" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/" rel="tag">algorithm</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-thanks-to" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/09/16/thanks-to/" class="article-date">
@@ -100,7 +148,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/16/thanks-to/" data-id="cmfqhr1g30005qkfb3ba82w2c" data-title="thanks-to" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/16/thanks-to/" data-id="cmfqiayro0004vsfbcng735ge" data-title="thanks-to" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -141,7 +189,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/16/first-day/" data-id="cmfqhr1fz0001qkfb0g0lat32" data-title="first-day" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/16/first-day/" data-id="cmfqiayrl0001vsfbg7hu0q4x" data-title="first-day" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -171,7 +219,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithm/" rel="tag">algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chat/" rel="tag">chat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/story/" rel="tag">story</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/structure/" rel="tag">structure</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/writing/" rel="tag">writing</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithm/" rel="tag">algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chat/" rel="tag">chat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/story/" rel="tag">story</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/structure/" rel="tag">structure</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/writing/" rel="tag">writing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%89%88%E6%9D%83/" rel="tag">版权</a></li></ul>
     </div>
   </div>
 
@@ -181,7 +229,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/algorithm/" style="font-size: 10px;">algorithm</a> <a href="/tags/chat/" style="font-size: 15px;">chat</a> <a href="/tags/story/" style="font-size: 15px;">story</a> <a href="/tags/structure/" style="font-size: 10px;">structure</a> <a href="/tags/writing/" style="font-size: 20px;">writing</a>
+      <a href="/tags/algorithm/" style="font-size: 10px;">algorithm</a> <a href="/tags/chat/" style="font-size: 15px;">chat</a> <a href="/tags/story/" style="font-size: 15px;">story</a> <a href="/tags/structure/" style="font-size: 10px;">structure</a> <a href="/tags/writing/" style="font-size: 20px;">writing</a> <a href="/tags/%E7%89%88%E6%9D%83/" style="font-size: 10px;">版权</a>
     </div>
   </div>
 
@@ -211,15 +259,15 @@
           </li>
         
           <li>
+            <a href="/2025/09/19/%E7%89%88%E6%9D%83%E8%AF%B4%E6%98%8E/">版权说明</a>
+          </li>
+        
+          <li>
             <a href="/2025/09/19/%E5%86%AC%E5%A5%A5%E5%A5%87%E7%BC%98/">冬奥奇缘</a>
           </li>
         
           <li>
             <a href="/2025/09/19/%E5%AD%A3%E9%A3%8E/">季风</a>
-          </li>
-        
-          <li>
-            <a href="/2025/09/19/%E5%B0%8F%E6%9D%BE%E9%BC%A0%E7%9A%84%E6%95%85%E4%BA%8B/">小松鼠的故事</a>
           </li>
         
       </ul>
