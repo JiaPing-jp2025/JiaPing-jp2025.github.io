@@ -159,19 +159,22 @@
 <td>0</td>
 </tr>
 </tbody></table>
-<p>★Hint</p>
-<p>数列下标从 1 开始。</p>
 <h6 id="我的解答方案："><a href="#我的解答方案：" class="headerlink" title="我的解答方案："></a>我的解答方案：</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int XOR(int &amp;x,int &amp;y);</span><br><span class="line">int loop_In (int *x,int start,int end); </span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">	int bitNumber;</span><br><span class="line">	int outputNumber;</span><br><span class="line">	scanf(&quot;%d %d&quot;,&amp;bitNumber,&amp;outputNumber);</span><br><span class="line">	getchar();</span><br><span class="line">	int *a=(int *)malloc (sizeof(int)*bitNumber);</span><br><span class="line">	int *b=(int *)malloc (sizeof(int)*outputNumber);</span><br><span class="line">	for (int m=0;m&lt;bitNumber;m++)&#123;</span><br><span class="line">		cin&gt;&gt;a[m];</span><br><span class="line">	&#125;;</span><br><span class="line">	getchar();</span><br><span class="line">	for (int i=0;i&lt;outputNumber;i++)&#123;</span><br><span class="line">		int begin;</span><br><span class="line">		int end;</span><br><span class="line">		scanf(&quot;%d %d&quot;,&amp;begin,&amp;end);	</span><br><span class="line">		getchar();</span><br><span class="line">		if(begin==end)b[i]=a[begin-1];</span><br><span class="line">		else&#123;</span><br><span class="line">			b[i]=loop_In(a,begin-1,end-1);</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;</span><br><span class="line">	for (int i=0;i&lt;outputNumber;i++)&#123;</span><br><span class="line">		cout&lt;&lt;b[i]&lt;&lt;endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">int XOR(int x,int y)&#123;</span><br><span class="line">	if(x==0&amp;&amp;y==0)return 0;</span><br><span class="line">	if(x==0&amp;&amp;y==1)return 1;</span><br><span class="line">	if(x==1&amp;&amp;y==0)return 1;</span><br><span class="line">	if(x==1&amp;&amp;y==1)return 0;</span><br><span class="line">&#125;;</span><br><span class="line">int loop_In (int *x,int start,int end)&#123;</span><br><span class="line">	if(end==start)return x[start];</span><br><span class="line">	return bool(XOR(x[start],loop_In(x,start+1,end)));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+
+
+<h6 id="思路陈述："><a href="#思路陈述：" class="headerlink" title="思路陈述："></a>思路陈述：</h6><p>  首先先观察输入的值的含义，以及与输出的值的联系。根据题目要求，用malloc灵活开辟内存空间。根据题意需要，自己写一个表示XOR的函数关系。题目要求的功能实现逻辑包含一个嵌套功能，（联想到）类似于n!数列的实现模式，故写一份递归函数，表示连续做XOR(异或运算)的运算实现。</p>
+<p>如有错误，欢迎指出，欣逢指导。</p>
+<p>thanks for reading!</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/20/XOR-homework/" data-id="cmfrmyqrn0001yofb1nz05ejh" data-title="XOR-homework" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/20/XOR-homework/" data-id="cmfrnfyl30003q0fb3irv3xng" data-title="XOR-homework" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/school-homework/" rel="tag">school-homework</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/homework/" rel="tag">homework</a></li></ul>
 
     </footer>
   </div>
@@ -208,7 +211,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/19/%E5%AE%83%E8%AF%B4/" data-id="cmfrmyqry000pyofb6r4n7xu3" data-title="它说" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/19/%E5%AE%83%E8%AF%B4/" data-id="cmfrnfyl9000cq0fb64hmbkro" data-title="它说" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -260,7 +263,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/19/%E6%A2%A6%E5%BC%80%E5%A7%8B%E7%9A%84%E5%9C%B0%E6%96%B9/" data-id="cmfrmyqrz000tyofbfbp149x9" data-title="梦开始的地方" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/19/%E6%A2%A6%E5%BC%80%E5%A7%8B%E7%9A%84%E5%9C%B0%E6%96%B9/" data-id="cmfrnfylb000kq0fb39ky0b5d" data-title="梦开始的地方" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -305,7 +308,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/19/%E7%BE%8E/" data-id="cmfrmyqrz000ryofb362pb4k6" data-title="美" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/19/%E7%BE%8E/" data-id="cmfrnfyla000gq0fb2a396oc0" data-title="美" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -349,7 +352,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/19/%E8%B7%A8%E8%B6%8A/" data-id="cmfrmyqs0000xyofb7guegcv6" data-title="跨越" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/19/%E8%B7%A8%E8%B6%8A/" data-id="cmfrnfyld000rq0fb21w8h08z" data-title="跨越" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -394,7 +397,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/19/%EF%BC%81%E7%89%88%E6%9D%83%E8%AF%B4%E6%98%8E%EF%BC%81/" data-id="cmfrmyqrz000vyofb58q08e34" data-title="版权说明" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/19/%EF%BC%81%E7%89%88%E6%9D%83%E8%AF%B4%E6%98%8E%EF%BC%81/" data-id="cmfrnfylc000oq0fb81h80yc2" data-title="版权说明" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -437,7 +440,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/19/%E5%86%AC%E5%A5%A5%E5%A5%87%E7%BC%98/" data-id="cmfrmyqrr0006yofbfqvcf2dr" data-title="冬奥奇缘" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/19/%E5%86%AC%E5%A5%A5%E5%A5%87%E7%BC%98/" data-id="cmfrnfyl8000bq0fb2gr6bw0w" data-title="冬奥奇缘" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -483,7 +486,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/19/%E5%AD%A3%E9%A3%8E/" data-id="cmfrmyqrx000jyofbdq4hetbr" data-title="季风" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/19/%E5%AD%A3%E9%A3%8E/" data-id="cmfrnfyla000fq0fb71yo332z" data-title="季风" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -528,7 +531,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/19/%E5%B0%8F%E6%9D%BE%E9%BC%A0%E7%9A%84%E6%95%85%E4%BA%8B/" data-id="cmfrmyqrx000iyofbeauz7t3z" data-title="小松鼠的故事" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/19/%E5%B0%8F%E6%9D%BE%E9%BC%A0%E7%9A%84%E6%95%85%E4%BA%8B/" data-id="cmfrnfylb000jq0fb9882hx6w" data-title="小松鼠的故事" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -570,7 +573,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/19/%E5%BF%83%E5%8A%A8/" data-id="cmfrmyqry000lyofbai1b24cq" data-title="心动" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/19/%E5%BF%83%E5%8A%A8/" data-id="cmfrnfylc000mq0fbd86k0cam" data-title="心动" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -602,7 +605,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithm/" rel="tag">algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chat/" rel="tag">chat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/school-homework/" rel="tag">school-homework</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/story/" rel="tag">story</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/structure/" rel="tag">structure</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/writing/" rel="tag">writing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%89%88%E6%9D%83/" rel="tag">版权</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithm/" rel="tag">algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chat/" rel="tag">chat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homework/" rel="tag">homework</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/story/" rel="tag">story</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/structure/" rel="tag">structure</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/writing/" rel="tag">writing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%89%88%E6%9D%83/" rel="tag">版权</a></li></ul>
     </div>
   </div>
 
@@ -612,7 +615,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/algorithm/" style="font-size: 10px;">algorithm</a> <a href="/tags/chat/" style="font-size: 15px;">chat</a> <a href="/tags/school-homework/" style="font-size: 10px;">school-homework</a> <a href="/tags/story/" style="font-size: 15px;">story</a> <a href="/tags/structure/" style="font-size: 10px;">structure</a> <a href="/tags/writing/" style="font-size: 20px;">writing</a> <a href="/tags/%E7%89%88%E6%9D%83/" style="font-size: 10px;">版权</a>
+      <a href="/tags/algorithm/" style="font-size: 10px;">algorithm</a> <a href="/tags/chat/" style="font-size: 15px;">chat</a> <a href="/tags/homework/" style="font-size: 10px;">homework</a> <a href="/tags/story/" style="font-size: 15px;">story</a> <a href="/tags/structure/" style="font-size: 10px;">structure</a> <a href="/tags/writing/" style="font-size: 20px;">writing</a> <a href="/tags/%E7%89%88%E6%9D%83/" style="font-size: 10px;">版权</a>
     </div>
   </div>
 
