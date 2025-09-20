@@ -71,6 +71,116 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-XOR-homework" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/09/20/XOR-homework/" class="article-date">
+  <time class="dt-published" datetime="2025-09-20T02:07:07.000Z" itemprop="datePublished">2025-09-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/09/20/XOR-homework/">XOR-homework</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>★实验任务</p>
+<p>如果一个序列的元素的异或和等于 1，我们称这个序列为优雅的序列。现在给你一个01序列，和m次询问。对于每次询问，给出l,r。请你输出子序列a[l…r]的异或和。</p>
+<p>★数据输入</p>
+<p>输入第一行为正整数 n，m。</p>
+<p>第二行为 n 个正整数 a[1…n]。</p>
+<p>接下来的 m 行，每行两个数 l,r。(1&lt;&#x3D;l&lt;&#x3D;r&lt;&#x3D;n)</p>
+<p>80%的数据 1&lt;&#x3D;n,m&lt;&#x3D;1000.</p>
+<p>100%的数据1&lt;&#x3D;n,m&lt;&#x3D;100000.</p>
+<p>★数据输出</p>
+<p>输出 m 行，每行一个数表示 a[l…r]的异或和。</p>
+<table>
+<thead>
+<tr>
+<th>输入示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3 6</td>
+</tr>
+<tr>
+<td>1 1 0</td>
+</tr>
+<tr>
+<td>1 1</td>
+</tr>
+<tr>
+<td>1 2</td>
+</tr>
+<tr>
+<td>1 3</td>
+</tr>
+<tr>
+<td>2 2</td>
+</tr>
+<tr>
+<td>2 3</td>
+</tr>
+<tr>
+<td>3 3</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>输出示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+</tr>
+<tr>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+</tr>
+<tr>
+<td>0</td>
+</tr>
+</tbody></table>
+<p>★Hint</p>
+<p>数列下标从 1 开始。</p>
+<h6 id="我的解答方案："><a href="#我的解答方案：" class="headerlink" title="我的解答方案："></a>我的解答方案：</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int XOR(int &amp;x,int &amp;y);</span><br><span class="line">int loop_In (int *x,int start,int end); </span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">	int bitNumber;</span><br><span class="line">	int outputNumber;</span><br><span class="line">	scanf(&quot;%d %d&quot;,&amp;bitNumber,&amp;outputNumber);</span><br><span class="line">	getchar();</span><br><span class="line">	int *a=(int *)malloc (sizeof(int)*bitNumber);</span><br><span class="line">	int *b=(int *)malloc (sizeof(int)*outputNumber);</span><br><span class="line">	for (int m=0;m&lt;bitNumber;m++)&#123;</span><br><span class="line">		cin&gt;&gt;a[m];</span><br><span class="line">	&#125;;</span><br><span class="line">	getchar();</span><br><span class="line">	for (int i=0;i&lt;outputNumber;i++)&#123;</span><br><span class="line">		int begin;</span><br><span class="line">		int end;</span><br><span class="line">		scanf(&quot;%d %d&quot;,&amp;begin,&amp;end);	</span><br><span class="line">		getchar();</span><br><span class="line">		if(begin==end)b[i]=a[begin-1];</span><br><span class="line">		else&#123;</span><br><span class="line">			b[i]=loop_In(a,begin-1,end-1);</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;</span><br><span class="line">	for (int i=0;i&lt;outputNumber;i++)&#123;</span><br><span class="line">		cout&lt;&lt;b[i]&lt;&lt;endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">int XOR(int x,int y)&#123;</span><br><span class="line">	if(x==0&amp;&amp;y==0)return 0;</span><br><span class="line">	if(x==0&amp;&amp;y==1)return 1;</span><br><span class="line">	if(x==1&amp;&amp;y==0)return 1;</span><br><span class="line">	if(x==1&amp;&amp;y==1)return 0;</span><br><span class="line">&#125;;</span><br><span class="line">int loop_In (int *x,int start,int end)&#123;</span><br><span class="line">	if(end==start)return x[start];</span><br><span class="line">	return bool(XOR(x[start],loop_In(x,start+1,end)));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/09/20/XOR-homework/" data-id="cmfrmyqrn0001yofb1nz05ejh" data-title="XOR-homework" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/school-homework/" rel="tag">school-homework</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-它说" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/09/19/%E5%AE%83%E8%AF%B4/" class="article-date">
@@ -98,7 +208,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/19/%E5%AE%83%E8%AF%B4/" data-id="cmfr0bvzi000jvwfbhaq65sj8" data-title="它说" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/19/%E5%AE%83%E8%AF%B4/" data-id="cmfrmyqry000pyofb6r4n7xu3" data-title="它说" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -150,7 +260,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/19/%E6%A2%A6%E5%BC%80%E5%A7%8B%E7%9A%84%E5%9C%B0%E6%96%B9/" data-id="cmfr0bvzj000ovwfb25q3a6jw" data-title="梦开始的地方" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/19/%E6%A2%A6%E5%BC%80%E5%A7%8B%E7%9A%84%E5%9C%B0%E6%96%B9/" data-id="cmfrmyqrz000tyofbfbp149x9" data-title="梦开始的地方" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -195,7 +305,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/19/%E7%BE%8E/" data-id="cmfr0bvzk000rvwfb4t5og894" data-title="美" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/19/%E7%BE%8E/" data-id="cmfrmyqrz000ryofb362pb4k6" data-title="美" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -239,7 +349,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/19/%E8%B7%A8%E8%B6%8A/" data-id="cmfr0bvzk000pvwfbfshz5rz8" data-title="跨越" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/19/%E8%B7%A8%E8%B6%8A/" data-id="cmfrmyqs0000xyofb7guegcv6" data-title="跨越" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -284,7 +394,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/19/%EF%BC%81%E7%89%88%E6%9D%83%E8%AF%B4%E6%98%8E%EF%BC%81/" data-id="cmfr0bvzl000wvwfbfebzatb0" data-title="版权说明" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/19/%EF%BC%81%E7%89%88%E6%9D%83%E8%AF%B4%E6%98%8E%EF%BC%81/" data-id="cmfrmyqrz000vyofb58q08e34" data-title="版权说明" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -327,7 +437,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/19/%E5%86%AC%E5%A5%A5%E5%A5%87%E7%BC%98/" data-id="cmfr0bvzc0005vwfb8p800epv" data-title="冬奥奇缘" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/19/%E5%86%AC%E5%A5%A5%E5%A5%87%E7%BC%98/" data-id="cmfrmyqrr0006yofbfqvcf2dr" data-title="冬奥奇缘" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -373,7 +483,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/19/%E5%AD%A3%E9%A3%8E/" data-id="cmfr0bvzd0009vwfb5pwygo22" data-title="季风" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/19/%E5%AD%A3%E9%A3%8E/" data-id="cmfrmyqrx000jyofbdq4hetbr" data-title="季风" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -418,7 +528,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/19/%E5%B0%8F%E6%9D%BE%E9%BC%A0%E7%9A%84%E6%95%85%E4%BA%8B/" data-id="cmfr0bvzj000kvwfb2x0s5ceq" data-title="小松鼠的故事" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/19/%E5%B0%8F%E6%9D%BE%E9%BC%A0%E7%9A%84%E6%95%85%E4%BA%8B/" data-id="cmfrmyqrx000iyofbeauz7t3z" data-title="小松鼠的故事" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -460,71 +570,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/19/%E5%BF%83%E5%8A%A8/" data-id="cmfr0bvzl000uvwfbd0rmd4i3" data-title="心动" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/19/%E5%BF%83%E5%8A%A8/" data-id="cmfrmyqry000lyofbai1b24cq" data-title="心动" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/writing/" rel="tag">writing</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-simple-list-structure" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/09/17/simple-list-structure/" class="article-date">
-  <time class="dt-published" datetime="2025-09-17T09:32:47.000Z" itemprop="datePublished">2025-09-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/09/17/simple-list-structure/">simple-list-structure</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h5 id="数据结构介绍"><a href="#数据结构介绍" class="headerlink" title="数据结构介绍"></a>数据结构介绍</h5><p>​	简易的表，是一个由三个有用的部分（n,maxsize,table）组成的struct，(文中我将它理解为alist*)，其中，n和maxsize都是int类型的，表示表长，和已经开辟的最大空间长度，table是一个指针，指向要表达的数据类型的地址。</p>
-<p>​	如果比较简易的用空间想象能力的话，可以将开辟的空间理解为这样的三层：第一层是alist*，放着alist的地址；第二层是alist这个结构体，包含n,maxsize,和指向另一个空间的指针T * table；第三层是，被指向的空间的那层了。所以要用malloc开辟两次地址。</p>
-<p>​	常见的表的基础操作有，初始化表，判断表是否为空，返回表长，查找Key数据，查找某个地址上的某个数据，等等。</p>
-<h6 id="基础代码"><a href="#基础代码" class="headerlink" title="基础代码"></a>基础代码</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;iostream&gt; </span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">struct alist_double&#123;</span><br><span class="line">	int n;</span><br><span class="line">	int maxsize;</span><br><span class="line">	double * table;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">alist_double* alist_double_Init (int size)&#123;</span><br><span class="line">	alist_double * xlist;</span><br><span class="line">	xlist = (alist_double*) malloc (sizeof(alist_double));</span><br><span class="line">	if(!xlist) return NULL;</span><br><span class="line">	xlist-&gt;maxsize=size;</span><br><span class="line">	xlist-&gt;n=0;</span><br><span class="line">	xlist-&gt;table=(double*)malloc(sizeof(double)*size);</span><br><span class="line">	if(!xlist-&gt;table)&#123;</span><br><span class="line">		return NULL;</span><br><span class="line">		free (xlist);</span><br><span class="line">	&#125; ;</span><br><span class="line">	return xlist;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bool is_empty (alist_double* xlist)&#123;</span><br><span class="line">	return (xlist-&gt;n==0);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void list_length(alist_double* xlist)&#123;</span><br><span class="line">	cout&lt;&lt;&quot;the length of the list is:&quot;&lt;&lt;xlist-&gt;n&lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int int_list_length(alist_double* xlist)&#123;</span><br><span class="line">	return xlist-&gt;n;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">double search_Is_What_In_Num (int x,alist_double * xlist)&#123;</span><br><span class="line">	if(x&lt;1||x&gt;=xlist-&gt;n)&#123;</span><br><span class="line">		std::cerr&lt;&lt;&quot;out of bounds&quot;&lt;&lt;std::endl;</span><br><span class="line">		exit(1);</span><br><span class="line">	&#125;</span><br><span class="line">	//error(&quot;out of bounds&quot;);</span><br><span class="line">	cout&lt;&lt;&quot;the item in No.&quot;&lt;&lt;x&lt;&lt;&quot; is &quot;&lt;&lt;(xlist-&gt;table[x-1])&lt;&lt;endl;</span><br><span class="line">	return (xlist-&gt;table[x-1]);</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">int where_Is_Key (double key,alist_double * xlist)&#123;</span><br><span class="line">	for(int i=0;i&lt;(xlist-&gt;n);i++)&#123;</span><br><span class="line">		if(xlist-&gt;table[i]==key)cout&lt;&lt;&quot;the key &quot;&lt;&lt;key&lt;&lt;&quot;: is on NO.&quot;&lt;&lt;i+1&lt;&lt;endl;</span><br><span class="line">		return i;</span><br><span class="line">	&#125;</span><br><span class="line">	return -1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void auto_Fill_with_NatureNum (alist_double* xlist)&#123;</span><br><span class="line">	for(int i=0;i&lt;(xlist-&gt;maxsize)&amp;&amp;(xlist-&gt;n)&lt;(xlist-&gt;maxsize);i++)&#123;</span><br><span class="line">		xlist-&gt;table[(xlist-&gt;n)]=i+1;</span><br><span class="line">		(xlist-&gt;n)++;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void show_table (alist_double* xlist)&#123;</span><br><span class="line">	for(int i=0;i&lt;(xlist-&gt;n);i++)&#123;</span><br><span class="line">		cout&lt;&lt;(xlist-&gt;table[i])&lt;&lt;endl;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main ()&#123;</span><br><span class="line">	alist_double* x=alist_double_Init(10);</span><br><span class="line">	x-&gt;table[0]=2025;</span><br><span class="line">	(x-&gt;n)++;</span><br><span class="line">	auto_Fill_with_NatureNum (x);</span><br><span class="line">	show_table(x);</span><br><span class="line">	search_Is_What_In_Num (6,x);</span><br><span class="line">	where_Is_Key (8,x);</span><br><span class="line">	where_Is_Key (2026,x);</span><br><span class="line">	list_length(x);</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>以上包含，初始化表，判断表是否为空，返回表长，查找Key数据，查找某个地址上的某个数据，这些基础操作。</p>
-<p>使用了特殊的double类型做示范，实际上可以灵活选择表的数据类型。</p>
-<h6 id="学有余力（灵感）"><a href="#学有余力（灵感）" class="headerlink" title="学有余力（灵感）"></a>学有余力（灵感）</h6><p>补充完善，表的：增，删，改，查·········的完整功能。</p>
-<p>也许可以呈现一个通用模板吗？</p>
-<p>一个表可以盛放不同的数据类型吗？</p>
-<h6 id="网上资源补充："><a href="#网上资源补充：" class="headerlink" title="网上资源补充："></a>网上资源补充：</h6><ol start="2">
-<li>通用模板：可以用 C++ 模板（template）来写，就不用固定 double 类型。例如：</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">template &lt;typename T&gt;</span><br><span class="line">struct alist &#123;</span><br><span class="line">    int n;</span><br><span class="line">    int maxsize;</span><br><span class="line">    T* table;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">template &lt;typename T&gt;</span><br><span class="line">alist&lt;T&gt;* alist_Init(int size) &#123;</span><br><span class="line">    alist&lt;T&gt;* xlist = new alist&lt;T&gt;;</span><br><span class="line">    xlist-&gt;n = 0;</span><br><span class="line">    xlist-&gt;maxsize = size;</span><br><span class="line">    xlist-&gt;table = new T[size];</span><br><span class="line">    return xlist;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">template &lt;typename T&gt;</span><br><span class="line">void alist_Destroy(alist&lt;T&gt;* xlist) &#123;</span><br><span class="line">    delete[] xlist-&gt;table;</span><br><span class="line">    delete xlist;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这样就能定义 alist、alist、alist … 都能用一套逻辑。</p>
-<p>2.一个表盛放不同数据类型，C语言思路：用 void* 存储任意类型的指针，同时保存一个类型信息。但操作会很麻烦。C++思路：模板（推荐）：每个表固定一种类型，但灵活切换。std::variant &#x2F; std::any（C++17起）：真的能在同一个表里存不同类型，但操作复杂度提高。</p>
-<p>thanks for reading!</p>
-<p>Written by JiaPing.</p>
-<p>©all rights reserved.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/17/simple-list-structure/" data-id="cmfr0bvz60000vwfb46bh4nzb" data-title="simple-list-structure" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/structure/" rel="tag">structure</a></li></ul>
 
     </footer>
   </div>
@@ -552,7 +602,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithm/" rel="tag">algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chat/" rel="tag">chat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/story/" rel="tag">story</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/structure/" rel="tag">structure</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/writing/" rel="tag">writing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%89%88%E6%9D%83/" rel="tag">版权</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithm/" rel="tag">algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chat/" rel="tag">chat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/school-homework/" rel="tag">school-homework</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/story/" rel="tag">story</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/structure/" rel="tag">structure</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/writing/" rel="tag">writing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%89%88%E6%9D%83/" rel="tag">版权</a></li></ul>
     </div>
   </div>
 
@@ -562,7 +612,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/algorithm/" style="font-size: 10px;">algorithm</a> <a href="/tags/chat/" style="font-size: 15px;">chat</a> <a href="/tags/story/" style="font-size: 15px;">story</a> <a href="/tags/structure/" style="font-size: 10px;">structure</a> <a href="/tags/writing/" style="font-size: 20px;">writing</a> <a href="/tags/%E7%89%88%E6%9D%83/" style="font-size: 10px;">版权</a>
+      <a href="/tags/algorithm/" style="font-size: 10px;">algorithm</a> <a href="/tags/chat/" style="font-size: 15px;">chat</a> <a href="/tags/school-homework/" style="font-size: 10px;">school-homework</a> <a href="/tags/story/" style="font-size: 15px;">story</a> <a href="/tags/structure/" style="font-size: 10px;">structure</a> <a href="/tags/writing/" style="font-size: 20px;">writing</a> <a href="/tags/%E7%89%88%E6%9D%83/" style="font-size: 10px;">版权</a>
     </div>
   </div>
 
@@ -584,6 +634,10 @@
       <ul>
         
           <li>
+            <a href="/2025/09/20/XOR-homework/">XOR-homework</a>
+          </li>
+        
+          <li>
             <a href="/2025/09/19/%E5%AE%83%E8%AF%B4/">它说</a>
           </li>
         
@@ -597,10 +651,6 @@
         
           <li>
             <a href="/2025/09/19/%E8%B7%A8%E8%B6%8A/">跨越</a>
-          </li>
-        
-          <li>
-            <a href="/2025/09/19/%EF%BC%81%E7%89%88%E6%9D%83%E8%AF%B4%E6%98%8E%EF%BC%81/">版权说明</a>
           </li>
         
       </ul>
