@@ -71,6 +71,54 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-algorithm-insertion-sort" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/09/16/algorithm-insertion-sort/" class="article-date">
+  <time class="dt-published" datetime="2025-09-16T11:13:15.000Z" itemprop="datePublished">2025-09-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/09/16/algorithm-insertion-sort/">algorithm-insertion-sort</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="函数复现"><a href="#函数复现" class="headerlink" title="函数复现"></a>函数复现</h4><h5 id="算法复现："><a href="#算法复现：" class="headerlink" title="算法复现："></a>算法复现：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">template &lt;class T&gt;</span><br><span class="line">void insertSort(T *a,int n)&#123;</span><br><span class="line">	for (int i = 1;i&lt;n;i++)&#123;</span><br><span class="line">		int tmp_value=a[i];</span><br><span class="line">		int fly =i-1;</span><br><span class="line">		for(;a[fly]&gt;tmp_value;fly--)&#123;</span><br><span class="line">			a[fly+1]=a[fly];</span><br><span class="line">		&#125;;</span><br><span class="line">		a[fly+1]=tmp_value; </span><br><span class="line">	&#125;;</span><br><span class="line">&#125; ;</span><br></pre></td></tr></table></figure>
+
+<h6 id="说明："><a href="#说明：" class="headerlink" title="说明："></a>说明：</h6><p>第一层for内：从前往后，锁定组合的数据方块格数。</p>
+<p>第二层for内：让代码块内小的同化右侧大的，相当于数据复制到右侧一格。</p>
+<p>最后一步：填充最左侧的重复。</p>
+<h6 id="辅助思考："><a href="#辅助思考：" class="headerlink" title="辅助思考："></a>辅助思考：</h6><p>过程数据组：”145 3“</p>
+<p>方格思维，同时fly的实时地址，标注在方格下。</p>
+<p>Thanks for reading !</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/09/16/algorithm-insertion-sort/" data-id="cmg2dnabq0005m0fbebi16rxo" data-title="algorithm-insertion-sort" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/" rel="tag">algorithm</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-thanks-to" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/09/16/thanks-to/" class="article-date">
@@ -100,7 +148,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/16/thanks-to/" data-id="cmfzmy25y000fx8fb0fkwapho" data-title="thanks-to" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/16/thanks-to/" data-id="cmg2dnabt000em0fbg3l38ds5" data-title="thanks-to" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -141,7 +189,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/16/first-day/" data-id="cmfzmy25u0003x8fbhgrc7g28" data-title="first-day" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/09/16/first-day/" data-id="cmg2dnabp0004m0fb135i6wv9" data-title="first-day" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -203,6 +251,14 @@
       <ul>
         
           <li>
+            <a href="/2025/09/27/%E6%98%A5%E5%A8%87%E4%B8%8E%E5%BF%97%E6%98%8E-%E5%88%9B%E4%BD%9C%E5%A5%91%E6%9C%BA/">春娇与志明_创作契机</a>
+          </li>
+        
+          <li>
+            <a href="/2025/09/27/diary/">diary</a>
+          </li>
+        
+          <li>
             <a href="/2025/09/26/%E6%9F%90%E5%A4%A9/">某天</a>
           </li>
         
@@ -211,15 +267,7 @@
           </li>
         
           <li>
-            <a href="/2025/09/25/possible-capable%E7%9A%84%E8%81%8C%E4%B8%9A%E6%96%B9%E5%90%91/">possible_capable的职业方向</a>
-          </li>
-        
-          <li>
             <a href="/2025/09/23/%E6%A2%A6%E9%86%92%E6%97%B6%E5%88%86/">梦醒时分</a>
-          </li>
-        
-          <li>
-            <a href="/2025/09/20/opencv-start/">opencv-start</a>
           </li>
         
       </ul>
