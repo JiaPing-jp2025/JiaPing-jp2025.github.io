@@ -71,6 +71,147 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-stack" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/10/05/stack/" class="article-date">
+  <time class="dt-published" datetime="2025-10-05T13:03:19.000Z" itemprop="datePublished">2025-10-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/10/05/stack/">stack</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>​	以下分享，数组栈，链表栈，栈的部分stl实现，以及三个简单实践项目的代码。希望对大家有所帮助。</p>
+<h6 id="数组栈"><a href="#数组栈" class="headerlink" title="数组栈"></a>数组栈</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cassert&gt;</span> </span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdexcept&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">T</span>&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ArrayStack</span>&#123;</span><br><span class="line">	<span class="type">int</span> size;</span><br><span class="line">	<span class="type">int</span> tos;</span><br><span class="line">	T* contain;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="built_in">ArrayStack</span>():<span class="built_in">size</span>(<span class="number">0</span>),<span class="built_in">tos</span>(<span class="number">-1</span>),<span class="built_in">contain</span>(<span class="literal">NULL</span>)&#123;&#125;;</span><br><span class="line">		~<span class="built_in">ArrayStack</span>()&#123;<span class="keyword">delete</span> [] contain;	&#125; </span><br><span class="line">		<span class="built_in">ArrayStack</span>(<span class="type">int</span> MaxSize);</span><br><span class="line">		<span class="function"><span class="type">void</span> <span class="title">push</span> <span class="params">(T &amp;element)</span></span>;</span><br><span class="line">		<span class="function">T&amp; <span class="title">GetTop</span><span class="params">()</span></span>;</span><br><span class="line">		<span class="function">T&amp; <span class="title">Pop</span><span class="params">()</span></span>;</span><br><span class="line">		<span class="function"><span class="type">bool</span> <span class="title">IsEmpty</span><span class="params">()</span></span>;</span><br><span class="line">		<span class="function"><span class="type">void</span> <span class="title">MakeEmpty</span><span class="params">()</span></span>; </span><br><span class="line">		</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">T</span>&gt;</span><br><span class="line"><span class="type">void</span> ArrayStack&lt;T&gt;::<span class="built_in">MakeEmpty</span> (<span class="type">void</span>)&#123;</span><br><span class="line">	tos=<span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">T</span>&gt;</span><br><span class="line"><span class="type">bool</span> ArrayStack&lt;T&gt;::<span class="built_in">IsEmpty</span> (<span class="type">void</span>)&#123;</span><br><span class="line">	<span class="keyword">return</span> tos==<span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">T</span>&gt;</span><br><span class="line">T&amp; ArrayStack&lt;T&gt;::<span class="built_in">Pop</span> (<span class="type">void</span>)&#123;</span><br><span class="line">	<span class="built_in">assert</span>(tos!=<span class="number">-1</span>);</span><br><span class="line">	<span class="keyword">return</span> contain[tos--];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">T</span>&gt;</span><br><span class="line">T&amp; ArrayStack&lt;T&gt;::<span class="built_in">GetTop</span> (<span class="type">void</span>)&#123;</span><br><span class="line">	<span class="built_in">assert</span>(tos!=<span class="number">-1</span>);</span><br><span class="line">	<span class="keyword">return</span> contain[tos];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">T</span>&gt;</span><br><span class="line"><span class="type">void</span> ArrayStack&lt;T&gt;::<span class="built_in">push</span> (T &amp;element)&#123;</span><br><span class="line">	<span class="built_in">assert</span>(tos!=size<span class="number">-1</span>);</span><br><span class="line">	contain[++tos]=element;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T</span>&gt;</span><br><span class="line">ArrayStack&lt;T&gt;::<span class="built_in">ArrayStack</span>(<span class="type">int</span> MaxSize)&#123;</span><br><span class="line">	size = MaxSize;</span><br><span class="line">	tos = <span class="number">-1</span>;</span><br><span class="line">	contain=<span class="keyword">new</span> T[size];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	std::cout&lt;&lt;<span class="string">&quot;hello world&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="链表栈"><a href="#链表栈" class="headerlink" title="链表栈"></a>链表栈</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cassert&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdexcept&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">T</span>&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">LinkStackNode</span>&#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">	T data;</span><br><span class="line">	LinkStackNode&lt;T&gt;* link;</span><br><span class="line">	<span class="built_in">LinkStackNode</span>(T&amp; value):<span class="built_in">data</span>(value),<span class="built_in">link</span>(<span class="literal">NULL</span>)&#123;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">T</span>&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">LinkStack</span>&#123;</span><br><span class="line">	LinkStackNode&lt;T&gt;* tos;</span><br><span class="line">	~LinkStack&lt;T&gt;&#123;</span><br><span class="line">		<span class="built_in">MakeEmpty</span>();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="built_in">LinkStack</span>():<span class="built_in">tos</span>(<span class="literal">NULL</span>)&#123;&#125;;</span><br><span class="line">		<span class="function"><span class="type">void</span> <span class="title">push</span><span class="params">(<span class="type">const</span> T&amp; value)</span></span>;</span><br><span class="line">		<span class="function">T&amp; <span class="title">GetTop</span><span class="params">()</span></span>;</span><br><span class="line">		<span class="function">T <span class="title">Pop</span><span class="params">()</span></span>;</span><br><span class="line">		<span class="function"><span class="type">bool</span> <span class="title">IsEmpty</span><span class="params">()</span></span>;</span><br><span class="line">		<span class="function"><span class="type">void</span> <span class="title">MakeEmpty</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">T</span>&gt;</span><br><span class="line"><span class="type">void</span> LinkStack&lt;T&gt;::<span class="built_in">push</span>(<span class="type">const</span> T&amp; value)&#123;</span><br><span class="line">	LinkStackNode&lt;T&gt;* add=<span class="built_in">LinkStackNode</span>&lt;T&gt;(value);</span><br><span class="line">	add-&gt;link=tos;</span><br><span class="line">	tos=add;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">T</span>&gt;</span><br><span class="line">T&amp; LinkStack&lt;T&gt;::<span class="built_in">GetTop</span>(<span class="type">void</span>)&#123;</span><br><span class="line">	<span class="built_in">assert</span>(tos!=<span class="literal">NULL</span>);</span><br><span class="line">	<span class="keyword">return</span> tos-&gt;data;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">T</span>&gt;</span><br><span class="line">T LinkStack&lt;T&gt;::<span class="built_in">Pop</span>(<span class="type">void</span>)&#123;</span><br><span class="line">	<span class="built_in">assert</span>(tos!=<span class="literal">NULL</span>);</span><br><span class="line">	LinkStackNode&lt;T&gt;* old=tos;</span><br><span class="line">	tos=tos-&gt;link;</span><br><span class="line">	T data = old-&gt;data;</span><br><span class="line">	<span class="keyword">delete</span> old;</span><br><span class="line">	<span class="keyword">return</span> data;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">T</span>&gt;</span><br><span class="line"><span class="type">bool</span> LinkStack&lt;T&gt;::<span class="built_in">IsEmpty</span>(<span class="type">void</span>)&#123;</span><br><span class="line">	<span class="keyword">return</span> tos==<span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">T</span>&gt;</span><br><span class="line"><span class="type">void</span> LinkStack&lt;T&gt;::<span class="built_in">MakeEmpty</span>(<span class="type">void</span>)&#123;</span><br><span class="line">	<span class="keyword">while</span> (!<span class="keyword">this</span>-&gt;<span class="built_in">IsEmpty</span>())&#123;</span><br><span class="line">		<span class="keyword">this</span>-&gt;<span class="built_in">Pop</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	std::cout&lt;&lt;<span class="string">&quot;hello world&quot;</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="栈的简单stl实现"><a href="#栈的简单stl实现" class="headerlink" title="栈的简单stl实现"></a>栈的简单stl实现</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdexcept&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdlib&gt;</span> </span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	stack&lt;<span class="type">int</span>&gt; myStack;</span><br><span class="line">	myStack.<span class="built_in">push</span>(<span class="number">5</span>);</span><br><span class="line">	myStack.<span class="built_in">push</span>(<span class="number">66</span>);</span><br><span class="line">	myStack.<span class="built_in">push</span>(<span class="number">3</span>);</span><br><span class="line">	myStack.<span class="built_in">pop</span>();</span><br><span class="line">	myStack.<span class="built_in">pop</span>();</span><br><span class="line">	cout&lt;&lt;myStack.<span class="built_in">top</span>()&lt;&lt;endl;</span><br><span class="line">	cout&lt;&lt;myStack.<span class="built_in">size</span>()&lt;&lt;endl;</span><br><span class="line">	cout&lt;&lt;myStack.<span class="built_in">empty</span>()&lt;&lt;endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="栈实现行翻转"><a href="#栈实现行翻转" class="headerlink" title="栈实现行翻转"></a>栈实现行翻转</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span><span class="comment">//string的头文件 </span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fstream&gt;</span><span class="comment">//ifstream的头文件 </span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdlib&gt;</span><span class="comment">//EXIT_FAILURE的头文件 </span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stack&gt;</span><span class="comment">//stack的头文件 </span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	ifstream inf;<span class="comment">//初始化</span></span><br><span class="line">	inf.<span class="built_in">open</span>(<span class="string">&quot;temp.txt&quot;</span>);<span class="comment">//读入文件 </span></span><br><span class="line">	<span class="keyword">if</span>(!inf)&#123;<span class="comment">//判断是否成功读入 </span></span><br><span class="line">		cerr&lt;&lt;<span class="string">&quot;can not open input file&quot;</span>&lt;&lt;endl;</span><br><span class="line">		<span class="keyword">return</span> EXIT_FAILURE;</span><br><span class="line">	&#125; </span><br><span class="line">	stack&lt;string&gt; s;<span class="comment">//stack 的stl模板 </span></span><br><span class="line">	string line;</span><br><span class="line">	<span class="keyword">while</span> (<span class="built_in">getline</span>(inf,line))&#123;<span class="comment">//行读入 </span></span><br><span class="line">		s.<span class="built_in">push</span>(line);<span class="comment">//进栈 </span></span><br><span class="line">	&#125;</span><br><span class="line">	inf.<span class="built_in">close</span>();<span class="comment">//关掉文件 </span></span><br><span class="line">	<span class="keyword">while</span>(!s.<span class="built_in">empty</span>())&#123;</span><br><span class="line">		cout&lt;&lt;s.<span class="built_in">top</span>()&lt;&lt;endl;</span><br><span class="line">		s.<span class="built_in">pop</span>();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="栈的火车站问题（homework"><a href="#栈的火车站问题（homework" class="headerlink" title="栈的火车站问题（homework)"></a>栈的火车站问题（homework)</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdexcept&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> car_number;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;car_number);</span><br><span class="line">	<span class="built_in">getchar</span>();</span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> inOrder[car_number];</span><br><span class="line">	<span class="type">int</span> offOrder[car_number];</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;car_number;i++)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%1d&quot;</span>,&amp;inOrder[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">getchar</span>();</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;car_number;j++)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%1d&quot;</span>,&amp;offOrder[j]);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	stack&lt;<span class="type">int</span>&gt; parking_lot;</span><br><span class="line">	<span class="type">int</span> count=car_number;</span><br><span class="line">	<span class="type">int</span> icount=<span class="number">0</span>;</span><br><span class="line">	<span class="type">int</span> jcount=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(count--)&#123;</span><br><span class="line">		parking_lot.<span class="built_in">push</span>(inOrder[icount]);</span><br><span class="line">		<span class="keyword">while</span>(!parking_lot.<span class="built_in">empty</span>()&amp;&amp;parking_lot.<span class="built_in">top</span>()==offOrder[jcount])&#123;</span><br><span class="line">			parking_lot.<span class="built_in">pop</span>();</span><br><span class="line">			jcount++;</span><br><span class="line">		&#125;</span><br><span class="line">		icount++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(parking_lot.<span class="built_in">empty</span>())&#123;</span><br><span class="line">		cout&lt;&lt;<span class="string">&quot;Yes&quot;</span>&lt;&lt;endl;</span><br><span class="line">		</span><br><span class="line">		count=car_number;</span><br><span class="line">		icount=<span class="number">0</span>;</span><br><span class="line">		jcount=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span>(count--)&#123;</span><br><span class="line">			parking_lot.<span class="built_in">push</span>(inOrder[icount]);</span><br><span class="line">			cout&lt;&lt;<span class="string">&quot;in&quot;</span>&lt;&lt;endl;</span><br><span class="line">			<span class="keyword">while</span>(!parking_lot.<span class="built_in">empty</span>()&amp;&amp;parking_lot.<span class="built_in">top</span>()==offOrder[jcount])&#123;</span><br><span class="line">				parking_lot.<span class="built_in">pop</span>();</span><br><span class="line">				cout&lt;&lt;<span class="string">&quot;out&quot;</span>&lt;&lt;endl;</span><br><span class="line">				jcount++;</span><br><span class="line">			&#125;</span><br><span class="line">			icount++;</span><br><span class="line">			&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> &#123;</span><br><span class="line">		cout&lt;&lt;<span class="string">&quot;No&quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">&#125; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><em>学校布置的原题如下：</em></p>
+<p>TonyY 等火车无聊的时候，会去观察火车的排列，有一天他思考这么一个问题，火车总站的火车只能进站，要出站的话只能先出最后进站的那辆车，那么知道火车的进站顺序，能不能把它的出站顺序调整成火车站想要的呢？</p>
+<p>★数据输入</p>
+<p>输入第一行为一个正整数 n 表示火车辆数(编号 1-n)（1&lt;&#x3D;n&lt;&#x3D;9）。</p>
+<p>然后为两个长度为 n 的序列，表示火车的进站顺序和出站顺序。每辆火车刚好进出站各一次。</p>
+<p>★数据输出</p>
+<p>如果可以调整，输出 Yes 和出入站顺序。</p>
+<p>如果不能，输出 No。</p>
+<p>输入示例</p>
+<p>3</p>
+<p>123</p>
+<p>321</p>
+<p>输出示例</p>
+<p>Yes</p>
+<p>in</p>
+<p>in</p>
+<p>in</p>
+<p>out</p>
+<p>out</p>
+<p>out</p>
+<h6 id="栈的价值问题（homework"><a href="#栈的价值问题（homework" class="headerlink" title="栈的价值问题（homework)"></a>栈的价值问题（homework)</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cassert&gt;</span> </span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdexcept&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">what_is_Mim</span><span class="params">(<span class="type">int</span> *x,<span class="type">int</span> small,<span class="type">int</span> big)</span></span>;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">sum</span><span class="params">(<span class="type">int</span> *x,<span class="type">int</span> small,<span class="type">int</span> big)</span></span>;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> question_number;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;question_number);</span><br><span class="line">	<span class="built_in">getchar</span>();</span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> question[question_number];</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;question_number;i++)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;question[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> maxValue=<span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;question_number;i++)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j=i<span class="number">+1</span>;j&lt;question_number;j++)&#123;</span><br><span class="line">			<span class="type">int</span> count=<span class="built_in">sum</span>(question,i,j);</span><br><span class="line">			</span><br><span class="line">			</span><br><span class="line">			</span><br><span class="line">			<span class="type">int</span> max=<span class="built_in">what_is_Mim</span>(question,i,j);</span><br><span class="line">			<span class="type">int</span> value=count*max;</span><br><span class="line">			<span class="keyword">if</span>(value&gt;maxValue)maxValue=value;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	cout&lt;&lt;maxValue;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">what_is_Mim</span><span class="params">(<span class="type">int</span> *x,<span class="type">int</span> small,<span class="type">int</span> big)</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> maximum=x[small];</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;big-small<span class="number">+1</span>;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(x[small+i]&lt;maximum)</span><br><span class="line">			maximum=x[small+i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> maximum;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">sum</span><span class="params">(<span class="type">int</span> *x,<span class="type">int</span> small,<span class="type">int</span> big)</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> sum=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;big-small<span class="number">+1</span>;i++)&#123;</span><br><span class="line">		sum+=x[small+i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ps:这题我使用的是简单数组实现方式，没有用栈也能解决。有时间的时候会思考对比一下，栈和数组实现，这两种解法的优劣。</p>
+<p><em>原题如下</em>：</p>
+<p>K 神最近喜欢上了刷题，一天不刷浑身难受。最近他研究发现，自己的人生价值在于他某段时间内的刷题总数乘上这几天刷题数的最小值，现在 K 神很寂寞（无敌是多么寂寞），想知道他人生价值最高的时候究竟有多高（krz）</p>
+<p>★数据输入</p>
+<p>第一行为总天数 N(1&lt;&#x3D;N&lt;&#x3D;100000)</p>
+<p>接下来一行 N 个整数 ai（1&lt;&#x3D;ai&lt;&#x3D;100000），表示 K 神第 i 天的刷题数。</p>
+<p>★数据输出</p>
+<p>输出 K 神在连续一段时间内可能的最高价值 W。</p>
+<p>输入示例</p>
+<p>6</p>
+<p>3 1 6 4 5 2</p>
+<p>输出示例</p>
+<p>60</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/10/05/stack/" data-id="cmgdq4l430002o8fb6sgch9da" data-title="stack" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/learning/" rel="tag">learning</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-dairy" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/09/29/dairy/" class="article-date">
+  <time class="dt-published" datetime="2025-09-29T14:07:09.000Z" itemprop="datePublished">2025-09-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/09/29/dairy/">diary</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h6 id="2025-9-29-Lucky-Day"><a href="#2025-9-29-Lucky-Day" class="headerlink" title="2025_9_29-Lucky Day!"></a>2025_9_29-Lucky Day!</h6><p>今天是超级幸运的一天！我一定会幸福的！</p>
+<p>今晚博饼，随手一甩就是！顺子！！六个色子，1，2，3，4，5，6！丢到的时候我简直难以置信，就是这么美妙的巧合，百分之1.5的出现概率。其实我本完全不报希望的，想着，抽到一包面巾纸就谢天谢地了。所以，这个巧合，带来出乎意料的开心！</p>
+<p>今晚回宿舍的路上，看到了，xxxxxxxxx！真的好激动！</p>
+<p>超级有意思的是，以下的diary和本blog上的《梦醒时分》做的梦，都是在追着ddl学习这些入门知识的过程，后来，决定再也不要，push自己这么紧张了，也都重新如释重负了。</p>
+<p>真是塞翁失马、焉知非福，放弃旧的念想的过程中，我居然找到了人生的新的动力源，和dream！</p>
+<p>也许就像爱讲哲理的大物老师今天说的吧：”早早的要想明白，自己要干什么“，以及”人生中有几个重要的节点…..“。</p>
+<h6 id="2025-9-27-P人-Day"><a href="#2025-9-27-P人-Day" class="headerlink" title="2025_9_27-P人 Day!"></a>2025_9_27-P人 Day!</h6><p>新时期p人故事<br>本想去达道电子城买stlink<br>出地铁站的时候<br>凭感觉选了c口——转转反侧的开始了<br>去附近的一个口，小电子店买杜邦线，<br>看到一个xxxx的xx，在写数学17题——熟悉的味道，xxxxxx，好attractive ，写作业的时候，很岁月静好的感觉<br>然后，无意间进入了，中亭街，买买买的开始了，hhhhhhh<br>xxx买了一套连衣裙，非常符合xxxxx，简约、大方、优雅、质感，也看到了我很喜欢的，很高级，xxxxxxxx，xxxxxxxxx,通过我的编程、计算机抽象知识，xx，xx（xxxxxxx）x，xxxxxxxxxx，never mind 我喜欢的是xx、xx、xxxxxx，xx，我喜欢、有风格、xxxxx，所以说，xxxxx，xxx！最近最感兴趣的课程为：计算机组成、数据结构、离散数学（远远大于，xxxxxxx），还喜欢大物老师的哲理时光。<br>然后，逛出来后，绕了一大圈，才到达到电子城，居然顺利的买了stlink——地铁站a口就在对面！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/09/29/dairy/" data-id="cmgdq4l400000o8fba21g2qqx" data-title="diary" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/chat/" rel="tag">chat</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-春娇与志明-创作契机" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/09/27/%E6%98%A5%E5%A8%87%E4%B8%8E%E5%BF%97%E6%98%8E-%E5%88%9B%E4%BD%9C%E5%A5%91%E6%9C%BA/" class="article-date">
@@ -107,44 +248,6 @@
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/chat/" rel="tag">chat</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-diary" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/09/27/diary/" class="article-date">
-  <time class="dt-published" datetime="2025-09-27T14:08:10.000Z" itemprop="datePublished">2025-09-27</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/09/27/diary/">diary</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/27/diary/" data-id="cmg2dnabq0006m0fbg09l4ibf" data-title="diary" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
     </footer>
   </div>
   
@@ -571,58 +674,6 @@
 
 
   
-    <article id="post-梦开始的地方" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/09/19/%E6%A2%A6%E5%BC%80%E5%A7%8B%E7%9A%84%E5%9C%B0%E6%96%B9/" class="article-date">
-  <time class="dt-published" datetime="2025-09-19T07:41:09.000Z" itemprop="datePublished">2025-09-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/09/19/%E6%A2%A6%E5%BC%80%E5%A7%8B%E7%9A%84%E5%9C%B0%E6%96%B9/">梦开始的地方</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h6 id="文章随笔："><a href="#文章随笔：" class="headerlink" title="文章随笔："></a>文章随笔：</h6><p>part1：<br>菡萏于水池中绽放一抹，小蝶在苍穹翩跹一色，竹笑于山林间，顷刻花开，旖旎一片岁月，惊艳一刻人间。负星，取书一本，花香馥郁，风儿轻抚脸庞，无声盛夏，安好。</p>
-<p>part2：<br>遇见你的时候，微风拂过水面，行星撞上恒星，沙鸥划过云朵，烟花绽放苍穹。那雀跃，那思念，竟溢散、饱和成一滴小水滴，从眼角流下，划过脸颊。眼泪分明是咸的，我却从中感受到甜甜的滋味，是心动啊。</p>
-<p>part3：<br>乡愁<br>你说，千里之处是故乡，万里之远亦难忘。<br>一缕斜阳，一座屋宇，一拱扁桥，一条小河，一抹花香，怎能相忘？<br>仍记，拂晓之时，鸡鸣未醒，轻推房门，但觉朝墩沐浴，秋风乍起，抚过树梢。门前流水泠泠，水波漾起。未见嫩黄意，但闻桂花香。无需多言，浅浅跨步，任西风灌满风衣，与风撞个满怀，空落落的思绪不久便吹得满满当当。自古铜色书架上取一部黛蓝的《乌合之众》，寻藤椅一条，惬意地倚于其上，懒懒的日光洒在书边，心境一片，清明。<br>碧树缟花枝丫，小桥流水我家，难忘。</p>
-<p>part4：<br>七夕<br>鹊桥下，浓情蜜意。<br>甜了那一轮弯弯明月。<br>凡世间，丽人成对。<br>醉了那满世尘烟。<br>巧秋七月，庚子佳年。<br>苍穹茫茫，星儿点点，<br>鸳鸯双双，情意浓浓。<br>烟云袅袅，缠绵丝丝。</p>
-<p>与良人，<br>同游庙会，<br>共赏婵娟，<br>烟火人间，<br>与君共赏，<br>遍阅红尘，<br>此生足矣。</p>
-<p>part5：<br>一缕缕骄阳，<br>如火。<br>一串串鸟鸣，<br>欢乐。<br>一朵朵花儿，<br>绽放。<br>一对对行人，<br>漫步。<br>一片片笑声，<br>如铃。<br>一个个少年，<br>奔跑，<br>跳跃，<br>洋溢青春。</p>
-<p>part6：<br>快乐的源泉<br>悄悄地摘下一束氤氲着甜蜜的小花，<br>暖暖地沐着阳光，<br>满满地抱着酥脆可口的一袋薯片，<br>走在乡间小道上，<br>叮咚，叮咚，<br>有自行车驶过，<br>哗啦，哗啦，<br>小溪身旁流过，<br>簌簌，飒飒，沙沙，哗哗，<br>微风拂过树梢，<br>夕阳伸了懒腰，<br>儿童玩着飞镖，<br>乡人皆在欢笑。<br>一切，正好。</p>
-<p>part7：<br>课间<br>立于四楼，<br>听人声喧哗，<br>眺县里风光，<br>笑自在时光，<br>乐亦感晨风，<br>叹时光匆忙，<br>不应负朝夕，<br>远方树繁花茂，<br>日光洒下，<br>悠闲地<br>人来人往。<br>羡他悠悠岁月，<br>盼闲闲假期，<br>只管，<br>生活，<br>过成诗。</p>
-<p>part8：<br>每日<br>拂晓时分，<br>晨露，喧嚣着，<br>和煦朝暾洒下，<br>朦胧一片，<br>一片。</p>
-<p>夜阑，<br>晚风拂过，<br>湖面微澜、幕雨扬飞，<br>雾霭一沐，<br>一木。</p>
-<p>part9：<br>无嘈杂街巷，<br>无馥郁花香，<br>苍青色天空下，<br>朔风凛冽，<br>霰雪飘飘，<br>树枝摇曳着，<br>撒下一缕缕细碎的残阳，<br>她站在那，<br>暖意涌上心头。</p>
-<h6 id="注解："><a href="#注解：" class="headerlink" title="注解："></a>注解：</h6><p>​	写于初一（2019），文笔稚嫩，不过，这是笔者人生第一次、主动写诗、是开始的开始、也还是非常用心、颇有一番风味的呦。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/19/%E6%A2%A6%E5%BC%80%E5%A7%8B%E7%9A%84%E5%9C%B0%E6%96%B9/" data-id="cmg2dnabx000xm0fb1crg75b1" data-title="梦开始的地方" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/writing/" rel="tag">writing</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -651,7 +702,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/algorithm/" style="font-size: 10px;">algorithm</a> <a href="/tags/chat/" style="font-size: 16.67px;">chat</a> <a href="/tags/homework/" style="font-size: 10px;">homework</a> <a href="/tags/learning/" style="font-size: 10px;">learning</a> <a href="/tags/story/" style="font-size: 13.33px;">story</a> <a href="/tags/structure/" style="font-size: 10px;">structure</a> <a href="/tags/writing/" style="font-size: 20px;">writing</a> <a href="/tags/%E7%89%88%E6%9D%83/" style="font-size: 10px;">版权</a>
+      <a href="/tags/algorithm/" style="font-size: 10px;">algorithm</a> <a href="/tags/chat/" style="font-size: 16.67px;">chat</a> <a href="/tags/homework/" style="font-size: 10px;">homework</a> <a href="/tags/learning/" style="font-size: 13.33px;">learning</a> <a href="/tags/story/" style="font-size: 13.33px;">story</a> <a href="/tags/structure/" style="font-size: 10px;">structure</a> <a href="/tags/writing/" style="font-size: 20px;">writing</a> <a href="/tags/%E7%89%88%E6%9D%83/" style="font-size: 10px;">版权</a>
     </div>
   </div>
 
@@ -660,7 +711,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/09/">September 2025</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">October 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/09/">September 2025</a></li></ul>
     </div>
   </div>
 
@@ -673,11 +724,15 @@
       <ul>
         
           <li>
-            <a href="/2025/09/27/%E6%98%A5%E5%A8%87%E4%B8%8E%E5%BF%97%E6%98%8E-%E5%88%9B%E4%BD%9C%E5%A5%91%E6%9C%BA/">春娇与志明_创作契机</a>
+            <a href="/2025/10/05/stack/">stack</a>
           </li>
         
           <li>
-            <a href="/2025/09/27/diary/">diary</a>
+            <a href="/2025/09/29/dairy/">diary</a>
+          </li>
+        
+          <li>
+            <a href="/2025/09/27/%E6%98%A5%E5%A8%87%E4%B8%8E%E5%BF%97%E6%98%8E-%E5%88%9B%E4%BD%9C%E5%A5%91%E6%9C%BA/">春娇与志明_创作契机</a>
           </li>
         
           <li>
@@ -686,10 +741,6 @@
         
           <li>
             <a href="/2025/09/25/one_day_introduction_to_opencv/">one_day_introduction_to_opencv</a>
-          </li>
-        
-          <li>
-            <a href="/2025/09/23/%E6%A2%A6%E9%86%92%E6%97%B6%E5%88%86/">梦醒时分</a>
           </li>
         
       </ul>
