@@ -71,6 +71,66 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-simple-list-structure" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/09/17/simple-list-structure/" class="article-date">
+  <time class="dt-published" datetime="2025-09-17T09:32:47.000Z" itemprop="datePublished">2025-09-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/09/17/simple-list-structure/">simple-list-structure</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h5 id="数据结构介绍"><a href="#数据结构介绍" class="headerlink" title="数据结构介绍"></a>数据结构介绍</h5><p>​	简易的表，是一个由三个有用的部分（n,maxsize,table）组成的struct，(文中我将它理解为alist*)，其中，n和maxsize都是int类型的，表示表长，和已经开辟的最大空间长度，table是一个指针，指向要表达的数据类型的地址。</p>
+<p>​	如果比较简易的用空间想象能力的话，可以将开辟的空间理解为这样的三层：第一层是alist*，放着alist的地址；第二层是alist这个结构体，包含n,maxsize,和指向另一个空间的指针T * table；第三层是，被指向的空间的那层了。所以要用malloc开辟两次地址。</p>
+<p>​	常见的表的基础操作有，初始化表，判断表是否为空，返回表长，查找Key数据，查找某个地址上的某个数据，等等。</p>
+<h6 id="基础代码"><a href="#基础代码" class="headerlink" title="基础代码"></a>基础代码</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;iostream&gt; </span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">struct alist_double&#123;</span><br><span class="line">	int n;</span><br><span class="line">	int maxsize;</span><br><span class="line">	double * table;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">alist_double* alist_double_Init (int size)&#123;</span><br><span class="line">	alist_double * xlist;</span><br><span class="line">	xlist = (alist_double*) malloc (sizeof(alist_double));</span><br><span class="line">	if(!xlist) return NULL;</span><br><span class="line">	xlist-&gt;maxsize=size;</span><br><span class="line">	xlist-&gt;n=0;</span><br><span class="line">	xlist-&gt;table=(double*)malloc(sizeof(double)*size);</span><br><span class="line">	if(!xlist-&gt;table)&#123;</span><br><span class="line">		return NULL;</span><br><span class="line">		free (xlist);</span><br><span class="line">	&#125; ;</span><br><span class="line">	return xlist;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bool is_empty (alist_double* xlist)&#123;</span><br><span class="line">	return (xlist-&gt;n==0);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void list_length(alist_double* xlist)&#123;</span><br><span class="line">	cout&lt;&lt;&quot;the length of the list is:&quot;&lt;&lt;xlist-&gt;n&lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int int_list_length(alist_double* xlist)&#123;</span><br><span class="line">	return xlist-&gt;n;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">double search_Is_What_In_Num (int x,alist_double * xlist)&#123;</span><br><span class="line">	if(x&lt;1||x&gt;=xlist-&gt;n)&#123;</span><br><span class="line">		std::cerr&lt;&lt;&quot;out of bounds&quot;&lt;&lt;std::endl;</span><br><span class="line">		exit(1);</span><br><span class="line">	&#125;</span><br><span class="line">	//error(&quot;out of bounds&quot;);</span><br><span class="line">	cout&lt;&lt;&quot;the item in No.&quot;&lt;&lt;x&lt;&lt;&quot; is &quot;&lt;&lt;(xlist-&gt;table[x-1])&lt;&lt;endl;</span><br><span class="line">	return (xlist-&gt;table[x-1]);</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">int where_Is_Key (double key,alist_double * xlist)&#123;</span><br><span class="line">	for(int i=0;i&lt;(xlist-&gt;n);i++)&#123;</span><br><span class="line">		if(xlist-&gt;table[i]==key)cout&lt;&lt;&quot;the key &quot;&lt;&lt;key&lt;&lt;&quot;: is on NO.&quot;&lt;&lt;i+1&lt;&lt;endl;</span><br><span class="line">		return i;</span><br><span class="line">	&#125;</span><br><span class="line">	return -1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void auto_Fill_with_NatureNum (alist_double* xlist)&#123;</span><br><span class="line">	for(int i=0;i&lt;(xlist-&gt;maxsize)&amp;&amp;(xlist-&gt;n)&lt;(xlist-&gt;maxsize);i++)&#123;</span><br><span class="line">		xlist-&gt;table[(xlist-&gt;n)]=i+1;</span><br><span class="line">		(xlist-&gt;n)++;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void show_table (alist_double* xlist)&#123;</span><br><span class="line">	for(int i=0;i&lt;(xlist-&gt;n);i++)&#123;</span><br><span class="line">		cout&lt;&lt;(xlist-&gt;table[i])&lt;&lt;endl;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main ()&#123;</span><br><span class="line">	alist_double* x=alist_double_Init(10);</span><br><span class="line">	x-&gt;table[0]=2025;</span><br><span class="line">	(x-&gt;n)++;</span><br><span class="line">	auto_Fill_with_NatureNum (x);</span><br><span class="line">	show_table(x);</span><br><span class="line">	search_Is_What_In_Num (6,x);</span><br><span class="line">	where_Is_Key (8,x);</span><br><span class="line">	where_Is_Key (2026,x);</span><br><span class="line">	list_length(x);</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上包含，初始化表，判断表是否为空，返回表长，查找Key数据，查找某个地址上的某个数据，这些基础操作。</p>
+<p>使用了特殊的double类型做示范，实际上可以灵活选择表的数据类型。</p>
+<h6 id="学有余力（灵感）"><a href="#学有余力（灵感）" class="headerlink" title="学有余力（灵感）"></a>学有余力（灵感）</h6><p>补充完善，表的：增，删，改，查·········的完整功能。</p>
+<p>也许可以呈现一个通用模板吗？</p>
+<p>一个表可以盛放不同的数据类型吗？</p>
+<h6 id="网上资源补充："><a href="#网上资源补充：" class="headerlink" title="网上资源补充："></a>网上资源补充：</h6><ol start="2">
+<li>通用模板：可以用 C++ 模板（template）来写，就不用固定 double 类型。例如：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">template &lt;typename T&gt;</span><br><span class="line">struct alist &#123;</span><br><span class="line">    int n;</span><br><span class="line">    int maxsize;</span><br><span class="line">    T* table;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">template &lt;typename T&gt;</span><br><span class="line">alist&lt;T&gt;* alist_Init(int size) &#123;</span><br><span class="line">    alist&lt;T&gt;* xlist = new alist&lt;T&gt;;</span><br><span class="line">    xlist-&gt;n = 0;</span><br><span class="line">    xlist-&gt;maxsize = size;</span><br><span class="line">    xlist-&gt;table = new T[size];</span><br><span class="line">    return xlist;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">template &lt;typename T&gt;</span><br><span class="line">void alist_Destroy(alist&lt;T&gt;* xlist) &#123;</span><br><span class="line">    delete[] xlist-&gt;table;</span><br><span class="line">    delete xlist;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样就能定义 alist、alist、alist … 都能用一套逻辑。</p>
+<p>2.一个表盛放不同数据类型，C语言思路：用 void* 存储任意类型的指针，同时保存一个类型信息。但操作会很麻烦。C++思路：模板（推荐）：每个表固定一种类型，但灵活切换。std::variant &#x2F; std::any（C++17起）：真的能在同一个表里存不同类型，但操作复杂度提高。</p>
+<p>thanks for reading!</p>
+<p>Written by JiaPing.</p>
+<p>©all rights reserved.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/09/17/simple-list-structure/" data-id="cmg2dnabs000am0fb0k7a7uiw" data-title="simple-list-structure" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/structure/" rel="tag">structure</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-春娇与志明" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/09/16/%E6%98%A5%E5%A8%87%E4%B8%8E%E5%BF%97%E6%98%8E/" class="article-date">
@@ -500,6 +560,10 @@
       <ul>
         
           <li>
+            <a href="/2025/10/07/english-vocabulary-recommondations/">english-vocabulary-recommondations</a>
+          </li>
+        
+          <li>
             <a href="/2025/10/06/queue/">queue</a>
           </li>
         
@@ -513,10 +577,6 @@
         
           <li>
             <a href="/2025/09/27/%E6%98%A5%E5%A8%87%E4%B8%8E%E5%BF%97%E6%98%8E-%E5%88%9B%E4%BD%9C%E5%A5%91%E6%9C%BA/">春娇与志明_创作契机</a>
-          </li>
-        
-          <li>
-            <a href="/2025/09/26/%E6%9F%90%E5%A4%A9/">某天</a>
           </li>
         
       </ul>
